@@ -3,7 +3,7 @@
   "metadata": {
     "type": "KQLQueryset",
     "displayName": "kql-q-sqlkonferenz2025-01",
-    "description": ""
+    "description": "kql-q-sqlkonferenz2025-01"
   },
   "config": {
     "version": "2.0",
