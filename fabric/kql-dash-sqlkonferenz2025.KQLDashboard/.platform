@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDashboard",
+    "displayName": "kql-dash-sqlkonferenz2025",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab0e7532-11fd-93c2-465b-229f68ca8670"
+  }
+}

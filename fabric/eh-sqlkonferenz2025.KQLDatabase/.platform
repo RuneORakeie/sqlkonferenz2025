@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "eh-sqlkonferenz2025",
+    "description": "eh-sqlkonferenz2025"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ec00ab82-8d67-891b-4a46-0f557b925543"
+  }
+}

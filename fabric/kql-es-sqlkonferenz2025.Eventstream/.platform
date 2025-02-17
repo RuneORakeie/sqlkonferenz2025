@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "kql-es-sqlkonferenz2025",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "15eba88c-bc8b-87f7-45a7-08486f12cbcf"
+  }
+}
