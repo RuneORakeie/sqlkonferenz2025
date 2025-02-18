@@ -1,7 +1,411 @@
 {
-  "sources": [],
-  "destinations": [],
-  "streams": [],
-  "operators": [],
+  "sources": [
+    {
+      "id": "ba562ebd-aac4-4b29-b2f3-fd0135c5f830",
+      "name": "AzureEventHub",
+      "type": "AzureEventHub",
+      "properties": {
+        "dataConnectionId": "ff9ea6e8-aabb-49b4-9e9c-0b76ff275f03",
+        "consumerGroupName": "sqlconf",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      }
+    }
+  ],
+  "destinations": [
+    {
+      "id": "e09fe6f2-d78d-4bd0-9819-39a045c47290",
+      "name": "SQLKonfEH",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "48fc611a-136b-85d1-4196-ecd05dcfd44e",
+        "databaseName": "kql-db-sqlkonferenz2025-01",
+        "tableName": "Sensor",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "ManageFields"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "ManageFields",
+          "schema": {
+            "columns": [
+              {
+                "name": "applicationId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "deviceId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "enqueuedTime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "ConnectionStatus",
+                "type": "BigInt",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "EndDatetime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "EnergyAmountkWh",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "PowerReading",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "StartDatetime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "VoltageReading",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "enrichments",
+                "type": "Record",
+                "fields": [],
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "acbb28ed-6dc3-44e8-8c5a-51938e4e4480",
+      "name": "kql-es-sqlkonferenz2025-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "AzureEventHub"
+        }
+      ]
+    }
+  ],
+  "operators": [
+    {
+      "name": "ManageFields",
+      "type": "ManageFields",
+      "inputNodes": [
+        {
+          "name": "kql-es-sqlkonferenz2025-stream"
+        }
+      ],
+      "properties": {
+        "columns": [
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "applicationId",
+                "columnPathSegments": []
+              }
+            },
+            "alias": "applicationId"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "deviceId",
+                "columnPathSegments": []
+              }
+            },
+            "alias": "deviceId"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "enqueuedTime",
+                "columnPathSegments": []
+              }
+            },
+            "alias": "enqueuedTime"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "ConnectionStatus"
+                  }
+                ]
+              }
+            },
+            "alias": "ConnectionStatus"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "EndDatetime"
+                  }
+                ]
+              }
+            },
+            "alias": "EndDatetime"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "EnergyAmountkWh"
+                  }
+                ]
+              }
+            },
+            "alias": "EnergyAmountkWh"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "PowerReading"
+                  }
+                ]
+              }
+            },
+            "alias": "PowerReading"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "StartDatetime"
+                  }
+                ]
+              }
+            },
+            "alias": "StartDatetime"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "telemetry",
+                "columnPathSegments": [
+                  {
+                    "field": "VoltageReading"
+                  }
+                ]
+              }
+            },
+            "alias": "VoltageReading"
+          },
+          {
+            "type": "Rename",
+            "properties": {
+              "column": {
+                "expressionType": "ColumnReference",
+                "node": null,
+                "columnName": "enrichments",
+                "columnPathSegments": []
+              }
+            },
+            "alias": "enrichments"
+          }
+        ]
+      },
+      "inputSchemas": [
+        {
+          "name": "kql-es-sqlkonferenz2025-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "applicationId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "deviceId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "enqueuedTime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "enrichments",
+                "type": "Record",
+                "fields": [],
+                "items": null
+              },
+              {
+                "name": "messageProperties",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "iothub-creation-time-utc",
+                    "type": "DateTime",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "messageSource",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "schema",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "telemetry",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "ConnectionStatus",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "EndDatetime",
+                    "type": "DateTime",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "EnergyAmountkWh",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "PowerReading",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "StartDatetime",
+                    "type": "DateTime",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "VoltageReading",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "templateId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "EventProcessedUtcTime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "PartitionId",
+                "type": "BigInt",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "EventEnqueuedUtcTime",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "compatibilityLevel": "1.0"
 }
