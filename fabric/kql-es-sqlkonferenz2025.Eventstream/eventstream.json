@@ -5,7 +5,7 @@
       "name": "AzureEventHub",
       "type": "AzureEventHub",
       "properties": {
-        "dataConnectionId": "ff9ea6e8-aabb-49b4-9e9c-0b76ff275f03",
+        "dataConnectionId": "3c5c66f3-f46f-41e8-a29a-d703505f20ce",
         "consumerGroupName": "sqlconf",
         "inputSerialization": {
           "type": "Json",
