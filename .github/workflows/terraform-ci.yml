@@ -3,6 +3,7 @@ name: Terraform CI
 on:
   push:
     branches-ignore: [ main ]
+    paths: 'tf/**'
 
 jobs:
   terraform:
@@ -17,10 +18,9 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       TF_VAR_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       TF_VAR_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_USE_OIDC: false
+      ARM_USE_OIDC: true
       WORKING_DIRECTORY: "./tf"
 
     steps:
@@ -29,15 +29,15 @@ jobs:
       uses: actions/checkout@v4
       
     # Run tflint for Terraform linting
-    # - name: Setup TFLint
-    #   uses: terraform-linters/setup-tflint@v4
-    #   with:
-    #     tflint_version: latest
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v4
+      with:
+        tflint_version: latest
 
-    # - name: Run TFLint
-    #   run: |
-    #     tflint --init
-    #     tflint -f compact
+    - name: Run TFLint
+      run: |
+        tflint --init
+        tflint -f compact
 
     # Run Trivy vulnerability scanner with two steps
     # - name: Run Trivy for low and medium vulnerabilities
@@ -79,5 +79,11 @@ jobs:
       with:
         path: '${{ env.WORKING_DIRECTORY }}'
         backend_config: "subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }} resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY }}"
+        variables: |
+         tenant_id = "${{ secrets.FABRIC_TENANT_ID }}"
+         client_id = "${{ secrets.FABRIC_CLIENT_ID }}"
+         client_secret = "${{ secrets.FABRIC_CLIENT_SECRET }}"
+         admin_user = "${{ secrets.ADMIN_USER }}"
+         admin_user2 = "${{ secrets.ADMIN_USER2 }}"
         
     
