@@ -42,7 +42,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init -backend-config="resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }}" -backend-config="storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }}" -backend-config="container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }}" -backend-config="key=${{ vars.TERRAFORM_BACKEND_KEY }}"
+      run: terraform -chdir=${{ env.WORKING_DIRECTORY }} init -backend-config="resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }}" -backend-config="storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }}" -backend-config="container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }}" -backend-config="key=${{ vars.TERRAFORM_BACKEND_KEY }}"
 
     # Run Trivy vulnerability scanner with two steps
     - name: Run Trivy for low and medium vulnerabilities
