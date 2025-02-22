@@ -1,0 +1,150 @@
+{
+    "$schema": "https://pbiadx.powerbi.com/static/d/schema/58/dashboard.json",
+    "id": "68ca8670-229f-465b-93c2-11fdab0e7532",
+    "eTag": "\"e9155e6a89ea4ade97fad48479bd5e4f\"",
+    "schema_version": "58",
+    "title": "kql-dash-sqlkonferenz2025",
+    "tiles": [
+        {
+            "id": "c26d460d-7a4f-4644-a902-daee9e4cf291",
+            "title": "Voltage readings over time",
+            "visualType": "line",
+            "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 9,
+                "height": 7
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "12d517d8-57a6-4604-bbff-521580bbf185"
+            },
+            "visualOptions": {
+                "multipleYAxes": {
+                    "base": {
+                        "id": "-1",
+                        "label": "",
+                        "columns": [],
+                        "yAxisMaximumValue": null,
+                        "yAxisMinimumValue": null,
+                        "yAxisScale": "linear",
+                        "horizontalLines": []
+                    },
+                    "additional": [],
+                    "showMultiplePanels": false
+                },
+                "hideLegend": false,
+                "legendLocation": "bottom",
+                "xColumnTitle": "",
+                "xColumn": "deviceId",
+                "yColumns": [
+                    "enqueuedTime"
+                ],
+                "seriesColumns": [
+                    "VoltageReading"
+                ],
+                "xAxisScale": "linear",
+                "verticalLine": "",
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": []
+            }
+        },
+        {
+            "id": "562223b7-92fc-4814-91e8-97e786adaae3",
+            "title": "Average (kwH)",
+            "visualType": "card",
+            "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
+            "layout": {
+                "x": 9,
+                "y": 0,
+                "width": 3,
+                "height": 3
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "714b0216-4183-4a09-9317-96fbda77f687"
+            },
+            "visualOptions": {
+                "multiStat__textSize": "auto",
+                "multiStat__valueColumn": null,
+                "colorRulesDisabled": false,
+                "colorStyle": "light",
+                "colorRules": []
+            }
+        }
+    ],
+    "baseQueries": [
+        {
+            "id": "d051159a-2160-4001-93aa-1900a8b6d948",
+            "queryId": "8b6628cb-3a4c-4f06-a9f8-87d92c36cf1b",
+            "variableName": "tesy"
+        }
+    ],
+    "parameters": [
+        {
+            "kind": "duration",
+            "id": "4e5b231d-895e-4529-bd13-14873481bd97",
+            "displayName": "Time range",
+            "description": "",
+            "beginVariableName": "_startTime",
+            "endVariableName": "_endTime",
+            "defaultValue": {
+                "kind": "dynamic",
+                "count": 1,
+                "unit": "hours"
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        }
+    ],
+    "dataSources": [
+        {
+            "kind": "kusto-trident",
+            "scopeId": "kusto-trident",
+            "clusterUri": "{{ .QuerySvcUri }}",
+            "database": "{{ .KqlDbId }}",
+            "name": "kql-db-sqlkonferenz2025-1",
+            "id": "218507c7-fe5b-4bd9-9440-54f5e7fc6558",
+            "workspace": "{{ .WsId }}"
+        }
+    ],
+    "pages": [
+        {
+            "name": "Page 1",
+            "id": "8ea9baab-3c24-4613-ad46-bebc7fff31e8"
+        }
+    ],
+    "queries": [
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "218507c7-fe5b-4bd9-9440-54f5e7fc6558"
+            },
+            "text": "Sensor\n//| where ConnectionStatus = '2'\n| order by enqueuedTime\n| project deviceId,enqueuedTime,VoltageReading\n",
+            "id": "12d517d8-57a6-4604-bbff-521580bbf185",
+            "usedVariables": []
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "218507c7-fe5b-4bd9-9440-54f5e7fc6558"
+            },
+            "text": "// Please enter your KQL query (Example):\nSensor\n| where ConnectionStatus == 1\n| extend EnergyAmount = toint(EnergyAmountkWh)\n| summarize avg(EnergyAmount)\n// | take 100\n",
+            "id": "714b0216-4183-4a09-9317-96fbda77f687",
+            "usedVariables": []
+        },
+        {
+            "id": "8b6628cb-3a4c-4f06-a9f8-87d92c36cf1b",
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "218507c7-fe5b-4bd9-9440-54f5e7fc6558"
+            },
+            "text": "// Please enter your KQL query (Example):\nSensor\n//| where <datetime column> between (['_startTime'] .. ['_endTime']) // Time range filtering\n| project VoltageReading",
+            "usedVariables": []
+        }
+    ]
+}

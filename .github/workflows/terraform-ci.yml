@@ -1,0 +1,71 @@
+name: Terraform CI
+
+on:
+  push:
+    branches-ignore: [ main ]
+
+jobs:
+  terraform:
+    name: 'Terraform CI'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
+      FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+      FABRIC_USE_OIDC: true
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_USE_OIDC: true
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    # Run tflint for Terraform linting
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v4
+      with:
+        tflint_version: latest
+
+    - name: Run TFLint
+      run: |
+        tflint --init
+        tflint -f compact
+
+    # Run Trivy vulnerability scanner with two steps
+    - name: Run Trivy for low and medium vulnerabilities
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'table'
+        exit-code: '0'
+        severity: 'LOW,MEDIUM'
+        timeout: '10m'
+
+    - name: Run Trivy for high and critical vulnerabilities
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'table'
+        exit-code: '1'
+        severity: 'HIGH,CRITICAL'
+        timeout: '10m'
+
+    # No separate init step needed as dflook actions handle this internally
+
+    # Execute Terraform plan (handles init internally)
+    - name: Terraform Plan
+      uses: dflook/terraform-plan@v1
+      with:
+        path: .
+        backend_config: |
+          resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }}
+          storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }}
+          container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }}
+          key=${{ vars.TERRAFORM_BACKEND_KEY }}
+        
+    # Terraform plan is still generated but no PR comment step since we're not running on PRs    

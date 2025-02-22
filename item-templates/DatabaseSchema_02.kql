@@ -1,0 +1,9 @@
+// KQL script
+// Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
+
+
+.create-merge table Sensor_2 (deviceId:string, enqueuedTime:datetime, StartDatetime:datetime, VoltageReading:real, ConnectionStatus:long, EnergyAmountkWh:real, EndDatetime:datetime, PowerReading:real, templateId:string) 
+.create-or-alter table Sensor_2 ingestion json mapping 'Sensor_2_mapping'
+```
+[{"Properties":{"Path":"$['deviceId']"},"column":"deviceId","datatype":""},{"Properties":{"Path":"$['enqueuedTime']"},"column":"enqueuedTime","datatype":""},{"Properties":{"Path":"$['telemetry']['StartDatetime']"},"column":"StartDatetime","datatype":""},{"Properties":{"Path":"$['telemetry']['VoltageReading']"},"column":"VoltageReading","datatype":""},{"Properties":{"Path":"$['telemetry']['ConnectionStatus']"},"column":"ConnectionStatus","datatype":""},{"Properties":{"Path":"$['telemetry']['EnergyAmountkWh']"},"column":"EnergyAmountkWh","datatype":""},{"Properties":{"Path":"$['telemetry']['EndDatetime']"},"column":"EndDatetime","datatype":""},{"Properties":{"Path":"$['telemetry']['PowerReading']"},"column":"PowerReading","datatype":""},{"Properties":{"Path":"$['templateId']"},"column":"templateId","datatype":""}]
+```
