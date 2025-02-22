@@ -16,7 +16,9 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      TF_VAR_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_USE_OIDC: true
+      WORKING_DIRECTORY: "./tf"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -36,35 +38,43 @@ jobs:
 
     # Run Trivy vulnerability scanner with two steps
     - name: Run Trivy for low and medium vulnerabilities
-      uses: aquasecurity/trivy-action@master
+      uses: aquasecurity/trivy-action@0.29.0
       with:
-        scan-type: 'fs'
-        scan-ref: '.'
-        format: 'table'
+        scan-type: 'config'
+        scan-ref: '${{ env.WORKING_DIRECTORY }}'
+        hide-progress: true
+        format: 'sarif'
+        output: 'trivy-results.sarif'
         exit-code: '0'
         severity: 'LOW,MEDIUM'
-        timeout: '10m'
 
-    - name: Run Trivy for high and critical vulnerabilities
-      uses: aquasecurity/trivy-action@master
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
       with:
-        scan-type: 'fs'
-        scan-ref: '.'
-        format: 'table'
+        sarif_file: 'trivy-results.sarif'        
+
+    - name: Run Trivy vulnerability scanner in IaC mode
+      uses: aquasecurity/trivy-action@0.29.0
+      with:
+        scan-type: 'config'
+        scan-ref: '${{ env.WORKING_DIRECTORY }}'
+        hide-progress: true
+        format: 'sarif'
+        output: 'trivy-results.sarif'
         exit-code: '1'
-        severity: 'HIGH,CRITICAL'
-        timeout: '10m'
+        severity: 'CRITICAL,HIGH'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: 'trivy-results.sarif'
 
     
     # Execute Terraform plan (handles init internally)
     - name: Terraform Plan
       uses: dflook/terraform-plan@v1
       with:
-        path: ./tf
-        backend_config: |
-          resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }}
-          storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }}
-          container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }}
-          key=${{ vars.TERRAFORM_BACKEND_KEY }}
+        path: '${{ env.WORKING_DIRECTORY }}'
+        backend_config: "subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }} resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY }}"
         
-    # Terraform plan is still generated but no PR comment step since we're not running on PRs    
+    
