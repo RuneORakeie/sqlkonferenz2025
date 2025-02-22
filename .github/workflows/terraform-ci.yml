@@ -43,7 +43,7 @@ jobs:
       with:
         scan-type: 'config'
         scan-ref: '${{ env.WORKING_DIRECTORY }}'
-        hide-progress: true
+        hide-progress: false
         format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: '0'
