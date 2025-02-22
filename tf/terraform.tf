@@ -1,10 +1,5 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "ClauseFabric"
-    storage_account_name = "tfsamsfabrictfstate"
-    container_name       = "tfstate"
-    key                  = "terraform-msfabric.tfstate"
-    use_oidc             = true
   }
   required_version = ">= 1.8, < 2.0"
   required_providers {
@@ -17,10 +12,10 @@ terraform {
       source  = "microsoft/fabric"
       version = "0.1.0-beta.9"
     }
-    ## Entra ID 
-    azuread = {
-      source = "hashicorp/azuread"
-    }
+    # ## Entra ID 
+    # azuread = {
+    #   source = "hashicorp/azuread"
+    # }
     ## Microsoft Fabric REST API 
     restapi = {
       source = "mastercard/restapi"

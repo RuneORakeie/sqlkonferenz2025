@@ -1,10 +1,6 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "ClauseFabric"
-    storage_account_name = "tfsamsfabrictfstate"
-    container_name       = "tfstate"
-    key                  = "terraform-msfabric-restore.tfstate"
-    use_oidc             = true
+
   }
   required_version = ">= 1.8, < 2.0"
   required_providers {
