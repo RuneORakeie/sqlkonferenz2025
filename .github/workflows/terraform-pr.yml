@@ -31,10 +31,11 @@ jobs:
         uses: dflook/terraform-plan@v1
         with:
           path: '${{ env.WORKING_DIRECTORY }}'
-          backend_config: "subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }} resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY }}"
-          variables: |
-            tenant_id = "${{ secrets.FABRIC_TENANT_ID }}"
-            client_id = "${{ secrets.FABRIC_CLIENT_ID }}"
-            client_secret = "${{ secrets.FABRIC_CLIENT_SECRET }}"
-            admin_user = "${{ secrets.ADMIN_USER }}"
-            admin_user2 = "${{ secrets.ADMIN_USER2 }}"
+          backend_config: "resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY }}"
+        env:
+          TF_VAR_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+          TF_VAR_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
+          TF_VAR_ADMIN_USER: ${{ secrets.ADMIN_USER }}
+          TF_VAR_ADMIN_USER2: ${{ secrets.ADMIN_USER2 }}
+          TF_VAR_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
