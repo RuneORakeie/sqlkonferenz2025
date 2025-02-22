@@ -34,8 +34,8 @@ jobs:
 
     - name: Run TFLint
       run: |
-        tflint --init
-        tflint -f compact
+        tflint --init --config=tflint_config.hcl
+        tflint --chdir=${{ env.WORKING_DIRECTORY }} --minimum-failure-severity=error -f compact
 
     # Run Trivy vulnerability scanner with two steps
     # - name: Run Trivy for low and medium vulnerabilities
