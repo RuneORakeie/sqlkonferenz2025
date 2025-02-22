@@ -12,10 +12,10 @@ terraform {
       source  = "microsoft/fabric"
       version = "0.1.0-beta.9"
     }
-    # ## Entra ID 
-    # azuread = {
-    #   source = "hashicorp/azuread"
-    # }
+    ## Entra ID 
+    azuread = {
+      source = "hashicorp/azuread"
+    }
     ## Microsoft Fabric REST API 
     restapi = {
       source = "mastercard/restapi"

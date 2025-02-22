@@ -71,6 +71,8 @@ jobs:
 
     
     # Execute Terraform plan (handles init internally)
+    # install azure-cli
+    - uses: pietrobolcato/install-azure-cli-action@main
     - name: Terraform Plan
       uses: dflook/terraform-plan@v1
       with:
