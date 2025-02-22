@@ -60,7 +60,7 @@ jobs:
     - name: Terraform Plan
       uses: dflook/terraform-plan@v1
       with:
-        path: .
+        path: ./tf
         backend_config: |
           resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }}
           storage_account_name=${{ secrets.TERRAFORM_BACKEND_SA }}
