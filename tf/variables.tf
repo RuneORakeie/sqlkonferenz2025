@@ -31,6 +31,7 @@ variable "client_id" {
 variable "client_secret" {
   description = "Azure client secret"
   type        = string
+  sensitive   = false
   # Will read from TF_VAR_client_secret environment variable
 }
 # variable "local_dev_client_id" {
