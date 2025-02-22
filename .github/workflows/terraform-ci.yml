@@ -37,6 +37,9 @@ jobs:
         tflint --init --config=tflint_config.hcl
         tflint --chdir=${{ env.WORKING_DIRECTORY }} --minimum-failure-severity=error -f compact
 
+    - name: Install Terraform CLI
+      uses: hashicorp/setup-terraform@v3
+
     # Run Trivy vulnerability scanner with two steps
     - name: Run Trivy for low and medium vulnerabilities
       uses: aquasecurity/trivy-action@0.29.0
