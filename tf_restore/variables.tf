@@ -69,4 +69,3 @@ variable "admin_user2" {
 #   description = "List of all role assignments for the connection"
 #   value       = jsondecode(data.http.connection_assignments.response_body).value
 # }
-

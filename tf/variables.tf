@@ -56,4 +56,3 @@ variable "admin_user2" {
   sensitive   = true
   # Will read from TF_VAR_admin_user2 environment variable
 }
-

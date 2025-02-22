@@ -43,4 +43,3 @@ resource "fabric_kql_dashboard" "kql_demo_dash" {
   description  = "kql-dash-sqlkonferenz2025"
   workspace_id = module.demo_ws_prod.id
 }
-
