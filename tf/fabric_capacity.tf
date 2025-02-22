@@ -12,3 +12,4 @@ resource "azurerm_fabric_capacity" "kql_demo" {
     tier = "Fabric"
   }
 }
+

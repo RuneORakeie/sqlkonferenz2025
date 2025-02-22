@@ -116,3 +116,4 @@ data "http" "azure_token" {
   # Form-encoded body with OAuth2 parameters
   request_body = "grant_type=client_credentials&client_id=${var.client_id}&client_secret=${var.client_secret}&scope=https://api.fabric.microsoft.com/.default"
 }
+

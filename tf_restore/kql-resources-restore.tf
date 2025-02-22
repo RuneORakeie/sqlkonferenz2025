@@ -92,3 +92,4 @@ resource "fabric_kql_dashboard" "kql_demo_dash_restore" {
   }
   depends_on = [fabric_kql_database.kql_demo_db_1_restore]
 }
+

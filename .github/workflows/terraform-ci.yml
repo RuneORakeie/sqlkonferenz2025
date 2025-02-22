@@ -55,8 +55,7 @@ jobs:
         severity: 'HIGH,CRITICAL'
         timeout: '10m'
 
-    # No separate init step needed as dflook actions handle this internally
-
+    
     # Execute Terraform plan (handles init internally)
     - name: Terraform Plan
       uses: dflook/terraform-plan@v1

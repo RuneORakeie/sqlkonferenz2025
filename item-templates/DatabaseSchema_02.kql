@@ -1,7 +1,6 @@
 // KQL script
 // Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
 
-
 .create-merge table Sensor_2 (deviceId:string, enqueuedTime:datetime, StartDatetime:datetime, VoltageReading:real, ConnectionStatus:long, EnergyAmountkWh:real, EndDatetime:datetime, PowerReading:real, templateId:string) 
 .create-or-alter table Sensor_2 ingestion json mapping 'Sensor_2_mapping'
 ```

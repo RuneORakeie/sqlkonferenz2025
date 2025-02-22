@@ -23,3 +23,4 @@ data "azuread_user" "admin2" {
   user_principal_name = var.admin_user2
 }
 
+

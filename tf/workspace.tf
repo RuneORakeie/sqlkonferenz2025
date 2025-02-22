@@ -1,4 +1,3 @@
-
 resource "azuread_group" "fabric_ws_contributors" {
   display_name     = "Terraform Demo - Workspace Contributors"
   owners           = [data.azuread_client_config.current.object_id]
