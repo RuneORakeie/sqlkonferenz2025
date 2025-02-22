@@ -1,6 +1,6 @@
 resource "azuread_group" "fabric_ws_contributors" {
   display_name     = "Terraform Demo - Workspace Contributors"
-  owners           = [data.azuread_client_config.current.object_id]
+  owners           = [data.azuread_client_config.current.object_id, data.azuread_user.admin.object_id]
   security_enabled = true
   members = [
     data.azuread_user.admin.object_id,
