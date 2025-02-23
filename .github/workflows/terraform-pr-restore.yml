@@ -8,8 +8,8 @@ permissions:
 
 jobs:
   plan:
+    name: 'Terraform PR - Restore'
     runs-on: ubuntu-latest
-    name: Create terraform plan
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}

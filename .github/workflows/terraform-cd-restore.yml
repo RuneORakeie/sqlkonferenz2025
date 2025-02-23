@@ -7,7 +7,7 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform CD'
+    name: 'Terraform CD - Restore'
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     env:
