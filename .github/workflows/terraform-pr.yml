@@ -38,4 +38,3 @@ jobs:
             client_secret = "${{ secrets.FABRIC_CLIENT_SECRET }}"
             admin_user = "${{ secrets.ADMIN_USER }}"
             admin_user2 = "${{ secrets.ADMIN_USER2 }}"
-            subscription_id = "${{ secrets.ARM_SUBSCRIPTION_ID }}"
