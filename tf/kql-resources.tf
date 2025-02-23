@@ -4,6 +4,11 @@
 resource "fabric_eventhouse" "kql_demo" {
   display_name = "eh-${var.solution_name}"
   workspace_id = module.demo_ws_prod.id
+  lifecycle {
+    ignore_changes = [
+      properties,
+    ]
+  }
 }
 ########################
 ###   KQL DATABASE   ###
@@ -16,6 +21,12 @@ resource "fabric_kql_database" "kql_demo_db_1" {
     database_type = "ReadWrite"
     eventhouse_id = fabric_eventhouse.kql_demo.id
   }
+  lifecycle {
+    ignore_changes = [
+      configuration,
+      properties,
+    ]
+  }
   depends_on = [fabric_eventhouse.kql_demo]
 }
 resource "fabric_kql_database" "kql_demo_db_2" {
@@ -25,6 +36,12 @@ resource "fabric_kql_database" "kql_demo_db_2" {
   configuration = {
     database_type = "ReadWrite"
     eventhouse_id = fabric_eventhouse.kql_demo.id
+  }
+  lifecycle {
+    ignore_changes = [
+      configuration,
+      properties,
+    ]
   }
   depends_on = [fabric_kql_database.kql_demo_db_1]
 }

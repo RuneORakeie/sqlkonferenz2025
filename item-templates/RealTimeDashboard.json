@@ -1,11 +1,61 @@
 {
+    "$schema": "https://pbiadx.powerbi.com/static/d/schema/58/dashboard.json",
+    "id": "68ca8670-229f-465b-93c2-11fdab0e7532",
+    "eTag": "\"a55fc65cf9d94d5498ebbca624de3afd\"",
     "schema_version": "58",
-    "title": "DEFAULTED_TITLE",
+    "title": "kql-dash-sqlkonferenz2025",
     "tiles": [
         {
             "id": "c26d460d-7a4f-4644-a902-daee9e4cf291",
-            "title": "New tile",
-            "visualType": "line",
+            "title": "Total energy by Connection status",
+            "visualType": "funnel",
+            "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
+            "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 9,
+                "height": 7
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "12d517d8-57a6-4604-bbff-521580bbf185"
+            },
+            "visualOptions": {
+                "xColumn": null,
+                "yColumns": null,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": []
+            }
+        },
+        {
+            "id": "562223b7-92fc-4814-91e8-97e786adaae3",
+            "title": "Average Energy amount (kWh)",
+            "visualType": "card",
+            "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
+            "layout": {
+                "x": 9,
+                "y": 0,
+                "width": 3,
+                "height": 7
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "714b0216-4183-4a09-9317-96fbda77f687"
+            },
+            "visualOptions": {
+                "multiStat__textSize": "auto",
+                "multiStat__valueColumn": null,
+                "colorRulesDisabled": false,
+                "colorStyle": "light",
+                "colorRules": []
+            }
+        },
+        {
+            "id": "43f026c4-2da5-464e-98a6-d7d996f4fccd",
+            "title": "Voltage readings over time",
+            "visualType": "timechart",
             "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
             "layout": {
                 "x": 0,
@@ -15,13 +65,13 @@
             },
             "queryRef": {
                 "kind": "query",
-                "queryId": "12d517d8-57a6-4604-bbff-521580bbf185"
+                "queryId": "c0a5e4c5-466a-4593-bfe9-240066e34c7f"
             },
             "visualOptions": {
                 "multipleYAxes": {
                     "base": {
                         "id": "-1",
-                        "label": "",
+                        "label": "Voltage",
                         "columns": [],
                         "yAxisMaximumValue": null,
                         "yAxisMinimumValue": null,
@@ -34,42 +84,23 @@
                 "hideLegend": false,
                 "legendLocation": "bottom",
                 "xColumnTitle": "",
-                "xColumn": "deviceId",
+                "xColumn": "enqueuedTime",
                 "yColumns": [
-                    "enqueuedTime"
-                ],
-                "seriesColumns": [
                     "VoltageReading"
                 ],
+                "seriesColumns": null,
                 "xAxisScale": "linear",
                 "verticalLine": "",
-                "crossFilter": [],
                 "crossFilterDisabled": false,
                 "drillthroughDisabled": false,
+                "crossFilter": [
+                    {
+                        "interaction": "column",
+                        "parameterId": "4e5b231d-895e-4529-bd13-14873481bd97",
+                        "disabled": false
+                    }
+                ],
                 "drillthrough": []
-            }
-        },
-        {
-            "id": "562223b7-92fc-4814-91e8-97e786adaae3",
-            "title": "New tile",
-            "visualType": "card",
-            "pageId": "8ea9baab-3c24-4613-ad46-bebc7fff31e8",
-            "layout": {
-                "x": 9,
-                "y": 0,
-                "width": 3,
-                "height": 3
-            },
-            "queryRef": {
-                "kind": "query",
-                "queryId": "714b0216-4183-4a09-9317-96fbda77f687"
-            },
-            "visualOptions": {
-                "multiStat__textSize": "auto",
-                "multiStat__valueColumn": null,
-                "colorRulesDisabled": false,
-                "colorStyle": "light",
-                "colorRules": []
             }
         }
     ],
@@ -102,7 +133,7 @@
         {
             "kind": "kusto-trident",
             "scopeId": "kusto-trident",
-            "clusterUri": "https://trd-9fgzwhhj5r82h10vn6.z4.kusto.fabric.microsoft.com",
+            "clusterUri": "{{ .QuerySvcUri }}",
             "database": "{{ .KqlDbId }}",
             "name": "kql-db-sqlkonferenz2025-1",
             "id": "218507c7-fe5b-4bd9-9440-54f5e7fc6558",
@@ -121,7 +152,7 @@
                 "kind": "inline",
                 "dataSourceId": "218507c7-fe5b-4bd9-9440-54f5e7fc6558"
             },
-            "text": "Sensor\n//| where ConnectionStatus = '2'\n| order by enqueuedTime\n| project deviceId,enqueuedTime,VoltageReading\n",
+            "text": "Sensor\n| summarize TotalEnergy = sum(todouble(EnergyAmountkWh)) by ConnectionStatus\n| order by ConnectionStatus\n",
             "id": "12d517d8-57a6-4604-bbff-521580bbf185",
             "usedVariables": []
         },
@@ -132,6 +163,15 @@
             },
             "text": "// Please enter your KQL query (Example):\nSensor\n| where ConnectionStatus == 1\n| extend EnergyAmount = toint(EnergyAmountkWh)\n| summarize avg(EnergyAmount)\n// | take 100\n",
             "id": "714b0216-4183-4a09-9317-96fbda77f687",
+            "usedVariables": []
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "218507c7-fe5b-4bd9-9440-54f5e7fc6558"
+            },
+            "text": "Sensor\n//| where ConnectionStatus = '2'\n| order by enqueuedTime\n| project deviceId,enqueuedTime,VoltageReading = todouble(VoltageReading)",
+            "id": "c0a5e4c5-466a-4593-bfe9-240066e34c7f",
             "usedVariables": []
         },
         {
