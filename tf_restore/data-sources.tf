@@ -2,7 +2,7 @@
 ### FABRIC CAPACITY ###
 #######################
 data "fabric_capacity" "capacity" {
-  display_name = azurerm_fabric_capacity.kql_demo.name
+  display_name = "fc${var.solution_name}"
 }
 #######################
 ### Entra ID Group  ###
