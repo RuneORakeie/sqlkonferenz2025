@@ -3,6 +3,8 @@ name: Terraform CI
 on:
   push:
     branches-ignore: [ main ]
+    paths:
+      - 'tf/**'
 
 permissions:
   id-token: write

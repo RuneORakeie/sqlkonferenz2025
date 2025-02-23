@@ -3,6 +3,8 @@ name: Terraform CI - Restore
 on:
   push:
     branches-ignore: [ main ]
+    paths:
+      - 'tf_restore/**'
 
 permissions:
   id-token: write
