@@ -39,22 +39,3 @@ variable "admin_user2" {
   sensitive   = true
   # Will read from TF_VAR_admin_user2 environment variable
 }
-
-
-
-
-# Get role assignments
-# data "http" "connection_assignments" {
-#   url = "https://api.fabric.microsoft.com/v1/connections/${restapi_object.fabric_connection.id}/roleAssignments"
-
-#   request_headers = {
-#     Authorization = "Bearer ${data.external.azure_token.result.access_token}"
-#     Content-Type  = "application/json"
-#   }
-# }
-
-# # Parse and output the assignments
-# output "connection_assignments" {
-#   description = "List of all role assignments for the connection"
-#   value       = jsondecode(data.http.connection_assignments.response_body).value
-# }
