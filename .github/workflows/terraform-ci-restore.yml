@@ -42,7 +42,7 @@ jobs:
       uses: dflook/terraform-plan@v1
       with:
         path: '${{ env.WORKING_DIRECTORY }}'
-        backend_config: "resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ vars.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY }}"
+        backend_config: "resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ vars.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY_RESTORE }}"
         variables: |
          tenant_id = "${{ secrets.FABRIC_TENANT_ID }}"
          client_id = "${{ secrets.FABRIC_CLIENT_ID }}"

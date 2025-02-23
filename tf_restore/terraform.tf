@@ -18,7 +18,7 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 3"
     }
-    ## Entra ID 
+    ## HTTP 
     http = {
       source  = "hashicorp/http"
       version = "~> 3"

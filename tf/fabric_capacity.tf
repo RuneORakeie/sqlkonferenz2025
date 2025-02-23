@@ -1,6 +1,6 @@
 # Create a Fabric Capacity.
 resource "azurerm_fabric_capacity" "kql_demo" {
-  name                = "fc${var.name}"
+  name                = "fc${var.solution_name}"
   resource_group_name = data.azurerm_resource_group.fc_cap_rg.name
   location            = var.location
 

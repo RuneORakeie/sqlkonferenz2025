@@ -3,12 +3,6 @@ variable "solution_name" {
   type        = string
   default     = "sqlkonferenz2025"
 }
-variable "name" {
-  description = "Name of the solution"
-  type        = string
-  default     = "sqlkonferenz2025"
-}
-
 variable "location" {
   description = "Location of the Azure resources"
   type        = string
