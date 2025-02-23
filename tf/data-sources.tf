@@ -15,7 +15,9 @@ data "azurerm_resource_group" "fc_cap_rg" {
 data "fabric_capacity" "capacity" {
   display_name = azurerm_fabric_capacity.kql_demo.name
 }
-
+#######################
+###  Entra ID User  ###
+#######################
 data "azuread_user" "admin" {
   user_principal_name = var.admin_user
 }

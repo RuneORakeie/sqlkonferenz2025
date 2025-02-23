@@ -23,7 +23,6 @@ resource "fabric_kql_database" "kql_demo_db_1" {
   lifecycle {
     ignore_changes = [
       configuration,
-      properties,
     ]
   }
   depends_on = [fabric_eventhouse.kql_demo]
@@ -39,7 +38,6 @@ resource "fabric_kql_database" "kql_demo_db_2" {
   lifecycle {
     ignore_changes = [
       configuration,
-      properties,
     ]
   }
   depends_on = [fabric_kql_database.kql_demo_db_1]

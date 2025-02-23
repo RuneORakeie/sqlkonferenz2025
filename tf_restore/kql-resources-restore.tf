@@ -1,10 +1,3 @@
-variable "solution_name_restored" {
-  description = "Name of the solution"
-  type        = string
-  default     = "sqlkonferenz2025-restored"
-}
-
-
 # ########################
 # ###  KQL EVENTHOUSE  ###
 # ########################

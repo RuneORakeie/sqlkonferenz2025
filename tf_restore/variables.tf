@@ -1,21 +1,10 @@
-variable "solution_name" {
+variable "solution_name_restored" {
   description = "Name of the solution"
   type        = string
-  default     = "sqlkonferenz2025"
-}
-variable "location" {
-  description = "Location of the Azure resources"
-  type        = string
-  default     = "WestEurope"
+  default     = "sqlkonferenz2025-restored"
 }
 
-variable "fabric_capacity_sku" {
-  description = "Fabric Capacity SKU name"
-  type        = string
-  default     = "F2"
-}
-
-# Authentication variables fro the RESTAPI provider
+# Authentication variables for the RESTAPI provider
 variable "tenant_id" {
   description = "Azure tenant ID"
   type        = string
