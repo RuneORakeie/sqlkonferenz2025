@@ -6,7 +6,6 @@ resource "fabric_eventhouse" "kql_demo" {
   workspace_id = module.demo_ws_prod.id
   lifecycle {
     ignore_changes = [
-      properties,
     ]
   }
 }

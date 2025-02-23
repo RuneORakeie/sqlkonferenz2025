@@ -1,8 +1,12 @@
-name: Terraform CI
+name: Terraform CI - Restore
 
 on:
   push:
     branches-ignore: [ main ]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   terraform:
@@ -19,7 +23,7 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_USE_OIDC: true
-      WORKING_DIRECTORY: "./tf"
+      WORKING_DIRECTORY: "./tf_restore"
 
     steps:
     # Checkout the repository to the GitHub Actions runner

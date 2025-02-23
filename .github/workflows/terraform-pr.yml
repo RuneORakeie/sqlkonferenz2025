@@ -3,6 +3,7 @@ name: Create PR TF Plan comment
 on: [pull_request]
 
 permissions:
+  id-token: write
   contents: read
   pull-requests: write
 
