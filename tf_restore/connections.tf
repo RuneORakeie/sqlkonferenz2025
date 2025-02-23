@@ -19,7 +19,7 @@ module "ws_conn_eventhub" {
   # Optional: Add role assignments
   connection_role_assignments = [
     {
-      principal_id   = azuread_group.fabric_ws_contributors.object_id
+      principal_id   = data.azuread_group.fabric_ws_contributors.object_id
       principal_type = "Group"
       role           = "Owner"
     },
