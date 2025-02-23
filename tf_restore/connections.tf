@@ -13,7 +13,7 @@ module "ws_conn_eventhub" {
 
   eventhub_credentials = {
     shared_access_key_name = "Fabric"
-    shared_access_key      = file("../secrets/azeventhub_saskey.txt")
+    shared_access_key      = var.azeventhub_saskey
   }
 
   # Optional: Add role assignments
