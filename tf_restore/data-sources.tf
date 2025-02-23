@@ -10,3 +10,12 @@ data "fabric_capacity" "capacity" {
 data "azuread_group" "fabric_ws_contributors" {
   display_name = "Terraform Demo - Workspace Contributors"
 }
+#######################
+###  Entra ID User  ###
+#######################
+data "azuread_user" "admin" {
+  user_principal_name = var.admin_user
+}
+data "azuread_user" "admin2" {
+  user_principal_name = var.admin_user2
+}
