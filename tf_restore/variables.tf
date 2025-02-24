@@ -39,6 +39,13 @@ variable "admin_user2" {
   sensitive   = true
   # Will read from TF_VAR_admin_user2 environment variable
 }
+variable "azeventhub_saskey" {
+  description = "Shared Access Key for the Event Hub"
+  type        = string
+  sensitive   = true
+  # Will read from TF_VAR_azeventhub_saskey environment variable
+
+}
 variable "solution_name" {
   description = "Name of the solution"
   type        = string
