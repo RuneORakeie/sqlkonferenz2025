@@ -48,7 +48,6 @@ jobs:
          client_secret = "${{ secrets.FABRIC_CLIENT_SECRET }}"
          admin_user = "${{ secrets.ADMIN_USER }}"
          admin_user2 = "${{ secrets.ADMIN_USER2 }}"
-         TF_LOG = "DEBUG"
         auto_approve: true
 
 
