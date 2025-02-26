@@ -49,6 +49,7 @@ jobs:
          admin_user = "${{ secrets.ADMIN_USER }}"
          admin_user2 = "${{ secrets.ADMIN_USER2 }}"
          azeventhub_saskey = "${{ secrets.AZURE_EVENTHUB_KEY }}"
+         TF_LOG = "DEBUG"
         auto_approve: true
 
     # Add PR comment about the apply status
