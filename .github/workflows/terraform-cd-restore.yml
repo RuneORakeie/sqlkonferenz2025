@@ -30,6 +30,7 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_USE_OIDC: true
       WORKING_DIRECTORY: "./tf_restore"
+      TF_LOG: "DEBUG"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -49,7 +50,6 @@ jobs:
          admin_user = "${{ secrets.ADMIN_USER }}"
          admin_user2 = "${{ secrets.ADMIN_USER2 }}"
          azeventhub_saskey = "${{ secrets.AZURE_EVENTHUB_KEY }}"
-         TF_LOG = "DEBUG"
         auto_approve: true
 
     # Add PR comment about the apply status
