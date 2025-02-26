@@ -40,6 +40,8 @@ jobs:
     # Execute Terraform apply (handles init internally)
     - name: Terraform Apply
       uses: dflook/terraform-apply@v1
+      env:
+        TF_LOG: "DEBUG"
       with:
         path: '${{ env.WORKING_DIRECTORY }}'
         backend_config: "resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ vars.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY_RESTORE }}"
@@ -51,6 +53,7 @@ jobs:
          admin_user2 = "${{ secrets.ADMIN_USER2 }}"
          azeventhub_saskey = "${{ secrets.AZURE_EVENTHUB_KEY }}"
         auto_approve: true
+          
 
     # Add PR comment about the apply status
     - name: Add PR Comment
