@@ -1,7 +1,7 @@
 variable "solution_name_restored" {
   description = "Name of the solution"
   type        = string
-  default     = "datamonster ws"
+  default     = "datamonster"
 }
 
 # Authentication variables for the RESTAPI provider
