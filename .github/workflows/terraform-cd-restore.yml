@@ -30,7 +30,6 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_USE_OIDC: true
       WORKING_DIRECTORY: "./tf_restore"
-      TF_LOG: "DEBUG"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -40,8 +39,6 @@ jobs:
     # Execute Terraform apply (handles init internally)
     - name: Terraform Apply
       uses: dflook/terraform-apply@v1
-      env:
-        TF_LOG: "DEBUG"
       with:
         path: '${{ env.WORKING_DIRECTORY }}'
         backend_config: "resource_group_name=${{ vars.TERRAFORM_BACKEND_RG }} storage_account_name=${{ vars.TERRAFORM_BACKEND_SA }} container_name=${{ vars.TERRAFORM_BACKEND_CONTAINER }} key=${{ vars.TERRAFORM_BACKEND_KEY_RESTORE }}"
