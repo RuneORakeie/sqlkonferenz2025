@@ -24,3 +24,9 @@ data "azuread_user" "admin" {
 data "azuread_user" "admin2" {
   user_principal_name = var.admin_user2
 }
+#######################
+### Entra ID Group  ###
+#######################
+data "azuread_group" "fabric_ws_contributors" {
+  display_name = "Terraform Demo - Workspace Contributors"
+}
