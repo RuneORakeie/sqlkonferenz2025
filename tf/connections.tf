@@ -1,6 +1,6 @@
 module "ws_conn_eventhub" {
   source          = "github.com/RuneORakeie/terraform-modules-fabric//fabric-connection?ref=beta-v0.1.2"
-  connection_name = "SQLKonf-Events SQLClause"
+  connection_name = "SQLKonf-Events SQLClause-2"
   connection_type = "EventHub"
 
   connectivity_type = "ShareableCloud"
